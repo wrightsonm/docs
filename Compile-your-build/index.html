@@ -46,11 +46,11 @@
 <span class=c1>; Similar exemple for ESP32</span>
 <span class=c1>; Note that you must explicitly state that they derive from `tasmota32`</span>
 <span class=k>[env:tasmota32-foo]</span>
-<span class=na>extends</span> <span class=o>=</span> <span class=s>env:tasmota32</span>
+<span class=na>extends</span> <span class=o>=</span> <span class=s>env:tasmota32_base</span>
 <span class=na>build_flags</span>             <span class=o>=</span> <span class=s>${common32.build_flags} -DFIRMWARE_FOO</span>
 
 <span class=k>[env:tasmota32-grizzly]</span>
-<span class=na>extends</span> <span class=o>=</span> <span class=s>env:tasmota32</span>
+<span class=na>extends</span> <span class=o>=</span> <span class=s>env:tasmota32_base</span>
 <span class=na>build_flags</span>             <span class=o>=</span> <span class=s>${common32.build_flags} -DFIRMWARE_GRIZZLY</span>
 </code></pre></div> <h4 id=sample-user_config_overrideh>Sample <code>user_config_override.h</code><a class=headerlink href=#sample-user_config_overrideh title="Permanent link">~</a></h4> <div class=highlight><pre><span></span><code><span class=cp>#ifndef _USER_CONFIG_OVERRIDE_H_</span>
 <span class=cp>#define _USER_CONFIG_OVERRIDE_H_</span>
