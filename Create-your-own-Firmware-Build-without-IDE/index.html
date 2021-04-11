@@ -74,7 +74,7 @@ Receiving objects: 100% (16930/16930), 23.75 MiB | 12.94 MiB/s, done.
 Resolving deltas: 100% (11426/11426), done.
 </code></pre></div> <p>After changing to the working copy, we are ready to go:</p> <div class=highlight><pre><span></span><code>(platformio-core) [tasmota_builder@jtest platformio-core]$ cd Tasmota/
 (platformio-core) [tasmota_builder@jtest Tasmota]$
-</code></pre></div> <h2 id=configure-the-sources>Configure the sources<a class=headerlink href=#configure-the-sources title="Permanent link">~</a></h2> <p>Now you may want to configure the sources for your needs.</p> <p>Actually, the sources do build fine right out-of-the box, only it'll be a full build, including all the language localisation and all the build flavours as well, while you are usually interested only in one language and one build flavour only.</p> <p>In <code>platformio.ini</code> choose the environment (or flavour, if you like) you want to build.</p> <p>In <code>tasmota/user_config_override.h</code> fine tune the default values for the module, the wifi, the MQTT server, and so on. Refer to the Tasmota Wiki for details.</p> <h2 id=build-the-firmware>Build the firmware<a class=headerlink href=#build-the-firmware title="Permanent link">~</a></h2> <p>The build command itself is <code>pio run</code>, but as it emits quite a lot of messages (including errors if you're developing), so you may want to redirect a copy of the standard output and error to a file, so it'll be <code>pio run 2&gt;&amp;1 | tee build.log</code>.</p> <div class=highlight><pre><span></span><code>(platformio-core) [tasmota_builder@jtest Tasmota]$ time pio run 2&gt;&amp;1 | tee build.log
+</code></pre></div> <h2 id=configure-the-sources>Configure the sources<a class=headerlink href=#configure-the-sources title="Permanent link">~</a></h2> <p>Now you may want to configure the sources for your needs.</p> <p>Actually, the sources do build fine right out-of-the box, only it'll be a full build, including all the language localisation and all the build flavours as well, while you are usually interested only in one language and one build flavour only.</p> <p>In <code>tasmota/user_config_override.h</code> fine tune the default values for the module, the wifi, the MQTT server, and so on.</p> <h2 id=build-the-firmware>Build the firmware<a class=headerlink href=#build-the-firmware title="Permanent link">~</a></h2> <p>The build command itself is <code>pio run</code>, but as it emits quite a lot of messages (including errors if you're developing), so you may want to redirect a copy of the standard output and error to a file, so it'll be <code>pio run 2&gt;&amp;1 | tee build.log</code>.</p> <div class=highlight><pre><span></span><code>(platformio-core) [tasmota_builder@jtest Tasmota]$ time pio run 2&gt;&amp;1 | tee build.log
 ************************************************************************************************************************************************************************
 If you like PlatformIO, please:
 - follow us on Twitter to stay up-to-date on the latest project news &gt; https://twitter.com/PlatformIO_Org
@@ -91,34 +91,7 @@ Downloading
 Environment tasmota-TW           [SUCCESS]
 Environment tasmota-UK           [SUCCESS]
 ==================================================================== [SUCCESS] Took 797.56 seconds ====================================================================
-</code></pre></div> <p>That's all, really :D !</p> <p>PlatformIO seems to handle the rebuilds and dependencies well, but if you want a clean build, the say <code>pio run -t clean</code> first, and then the <code>pio run</code>.</p> <h2 id=collect-the-results>Collect the results<a class=headerlink href=#collect-the-results title="Permanent link">~</a></h2> <p>The result will be here: <code>./.pioenvs/&lt;build-flavour&gt;/firmware.bin</code></p> <div class=highlight><pre><span></span><code>(platformio-core) [tasmota_builder@jtest Tasmota]$ find .pioenvs -name &#39;*.bin&#39;
-.pioenvs/tasmota-FR/firmware.bin
-.pioenvs/tasmota-GR/firmware.bin
-.pioenvs/tasmota-HE/firmware.bin
-.pioenvs/tasmota-HU/firmware.bin
-.pioenvs/tasmota-IT/firmware.bin
-.pioenvs/tasmota-NL/firmware.bin
-.pioenvs/tasmota-PL/firmware.bin
-.pioenvs/tasmota-PT/firmware.bin
-.pioenvs/tasmota-RU/firmware.bin
-.pioenvs/tasmota-SE/firmware.bin
-.pioenvs/tasmota-SK/firmware.bin
-.pioenvs/tasmota-TR/firmware.bin
-.pioenvs/tasmota-TW/firmware.bin
-.pioenvs/tasmota-UK/firmware.bin
-.pioenvs/tasmota/firmware.bin
-.pioenvs/tasmota-minimal/firmware.bin
-.pioenvs/tasmota-basic/firmware.bin
-.pioenvs/tasmota-knx/firmware.bin
-.pioenvs/tasmota-sensors/firmware.bin
-.pioenvs/tasmota-display/firmware.bin
-.pioenvs/tasmota-BG/firmware.bin
-.pioenvs/tasmota-BR/firmware.bin
-.pioenvs/tasmota-CN/firmware.bin
-.pioenvs/tasmota-CZ/firmware.bin
-.pioenvs/tasmota-DE/firmware.bin
-.pioenvs/tasmota-ES/firmware.bin
-</code></pre></div> <h2 id=about-build-times>About build times<a class=headerlink href=#about-build-times title="Permanent link">~</a></h2> <p>The recent versions of PlatformIO-Core seem to parallelise quite well.</p> <p>When you've changed only a few files, not everything needs to be recompiled (though the image must still be re-packed), so that minute-like build time is the maximum, usually it'll be less.</p> <h2 id=prepare-the-local-installer-tool>Prepare the <strong>local</strong> installer tool<a class=headerlink href=#prepare-the-local-installer-tool title="Permanent link">~</a></h2> <p>You may rebuild the firmware on a remote machine, but you must have the installer tool on the local machine where the module is connected to.</p> <p>Fortunately, it's also python-based, so we can again employ <code>virtualenv</code> here.</p> <p>If you built the firmware also on your localhost, then there is no need for a separate environment, you may quite well install <code>esptool</code> into that one.</p> <p>Otherwise, create a virtual environment the usual way:</p> <div class=highlight><pre><span></span><code>[tasmota_installer@lantash ~]$ virtualenv esptool
+</code></pre></div> <p>That's all, really :D !</p> <p>PlatformIO seems to handle the rebuilds and dependencies well, but if you want a clean build, the say <code>pio run -t clean</code> first, and then the <code>pio run</code>.</p> <h2 id=collect-the-results>Collect the results<a class=headerlink href=#collect-the-results title="Permanent link">~</a></h2> <p>The results will be here: <code>build_output</code></p> <h2 id=about-build-times>About build times<a class=headerlink href=#about-build-times title="Permanent link">~</a></h2> <p>The recent versions of PlatformIO-Core seem to parallelise quite well.</p> <p>When you've changed only a few files, not everything needs to be recompiled (though the image must still be re-packed), so that minute-like build time is the maximum, usually it'll be less.</p> <h2 id=prepare-the-local-installer-tool>Prepare the <strong>local</strong> installer tool<a class=headerlink href=#prepare-the-local-installer-tool title="Permanent link">~</a></h2> <p>You may rebuild the firmware on a remote machine, but you must have the installer tool on the local machine where the module is connected to.</p> <p>Fortunately, it's also python-based, so we can again employ <code>virtualenv</code> here.</p> <p>If you built the firmware also on your localhost, then there is no need for a separate environment, you may quite well install <code>esptool</code> into that one.</p> <p>Otherwise, create a virtual environment the usual way:</p> <div class=highlight><pre><span></span><code>[tasmota_installer@lantash ~]$ virtualenv esptool
 New python executable in /home/tasmota_installer/esptool/bin/python2.7
 Also creating executable in /home/tasmota_installer/esptool/bin/python
 Installing setuptools, pip, wheel...done.
