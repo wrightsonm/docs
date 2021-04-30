@@ -18,7 +18,7 @@ Erasing flash <span class=o>(</span>this may take a <span class=k>while</span><s
 Chip erase completed successfully <span class=k>in</span> <span class=m>3</span>.3s
 Hard resetting via RTS pin...
 ➜  ~ 
-</code></pre></div> <ol> <li>Flash .bin, which you can download from the <a href=https://github.com/arendst/Tasmota/releases>release-section</a>:</li> </ol> <p>Again connect 3.3V while pressing button for 10 seconds. Then release and run:</p> <div class=highlight><pre><span></span><code><span class=c1># if using Raspberry Pi 1/2 use</span>
+</code></pre></div> <ol> <li>Flash .bin, which you can download from the <a href=http://ota.tasmota.com/tasmota/release/ >release server</a>:</li> </ol> <p>Again connect 3.3V while pressing button for 10 seconds. Then release and run:</p> <div class=highlight><pre><span></span><code><span class=c1># if using Raspberry Pi 1/2 use</span>
 <span class=c1># esptool.py --port /dev/ttyAMA0 write_flash -fm dout 0x0 /path/to/downloaded/tasmota.bin</span>
 
 <span class=c1># if using Raspberry Pi 3 use</span>
