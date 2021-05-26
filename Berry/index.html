@@ -10,13 +10,12 @@
 </code></pre></div> <p>Note: Berry's native <code>print()</code> command displays text in the Berry Console and in the Tasmota logs. To log with finer control, you can also use the <code>log()</code> function, but it will not display in the Berry Console.</p> <div class=highlight><pre><span></span><code><span class=o>&gt;</span> <span class=nb>print</span><span class=p>(</span><span class=s1>&#39;Hello Tasmota!&#39;</span><span class=p>)</span>
   <span class=n>log</span><span class=p>(</span><span class=s1>&#39;Hello again&#39;</span><span class=p>)</span>
 <span class=n>Hello</span> <span class=n>Tasmota</span><span class=err>!</span>
-</code></pre></div> <p>Meanwhile the Tasmota log shows:</p> <blockquote> <p>tasmota.cmd("Dimmer 60") {"POWER":"ON","Dimmer":60,"Color":"996245","HSBColor":"21,55,60","Channel":[60,38,27]} The light is bright <div class=highlight><pre><span></span><code>The rule function have the general form below where parameters are optionals:
-
-```python
-def function_name(value, trigger, msg)
-  ...
-end
-</code></pre></div></p> </blockquote> <table> <thead> <tr> <th align=left>Parameter</th> <th align=left>Description</th> </tr> </thead> <tbody> <tr> <td align=left><code>value</code></td> <td align=left>The value of the trigger. Similar to <code>%value%</code> in native rules.</td> </tr> <tr> <td align=left><code>trigger</code></td> <td align=left><code>string</code> of the trigger with all levels. Can be used if the same function is used with multiple triggers.</td> </tr> <tr> <td align=left><code>msg</code></td> <td align=left><code>string</code> of the message that triggered the rule. If it is a JSON, it has to be explicitly converted to a map object with <code>json.load(msg)</code>.</td> </tr> </tbody> </table> <p>Example:</p> <div class=highlight><pre><span></span><code><span class=o>&gt;</span> <span class=k>def</span> <span class=nf>dimmer_over_50</span><span class=p>()</span>
+</code></pre></div> <p>Meanwhile the Tasmota log shows: <div class=highlight><pre><span></span><code>&gt; tasmota.cmd(&quot;Dimmer 60&quot;)
+{&quot;POWER&quot;:&quot;ON&quot;,&quot;Dimmer&quot;:60,&quot;Color&quot;:&quot;996245&quot;,&quot;HSBColor&quot;:&quot;21,55,60&quot;,&quot;Channel&quot;:[60,38,27]}
+The light is bright
+</code></pre></div> The rule function have the general form below where parameters are optionals:</p> <div class=highlight><pre><span></span><code><span class=k>def</span> <span class=nf>function_name</span><span class=p>(</span><span class=n>value</span><span class=p>,</span> <span class=n>trigger</span><span class=p>,</span> <span class=n>msg</span><span class=p>)</span>
+<span class=n>end</span>
+</code></pre></div> <table> <thead> <tr> <th align=left>Parameter</th> <th align=left>Description</th> </tr> </thead> <tbody> <tr> <td align=left><code>value</code></td> <td align=left>The value of the trigger. Similar to <code>%value%</code> in native rules.</td> </tr> <tr> <td align=left><code>trigger</code></td> <td align=left><code>string</code> of the trigger with all levels. Can be used if the same function is used with multiple triggers.</td> </tr> <tr> <td align=left><code>msg</code></td> <td align=left><code>string</code> of the message that triggered the rule. If it is a JSON, it has to be explicitly converted to a map object with <code>json.load(msg)</code>.</td> </tr> </tbody> </table> <p>Example:</p> <div class=highlight><pre><span></span><code><span class=o>&gt;</span> <span class=k>def</span> <span class=nf>dimmer_over_50</span><span class=p>()</span>
     <span class=nb>print</span><span class=p>(</span><span class=s2>&quot;The light is bright&quot;</span><span class=p>)</span>
   <span class=n>end</span>
   <span class=n>tasmota</span><span class=o>.</span><span class=n>add_rule</span><span class=p>(</span><span class=s2>&quot;Dimmer&gt;50&quot;</span><span class=p>,</span> <span class=n>dimmer_over_50</span><span class=p>)</span>
