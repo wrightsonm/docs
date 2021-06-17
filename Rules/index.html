@@ -217,7 +217,7 @@ MQT: cmnd/doorbell/POWER2 = OFF (retained)
 </code></pre></div></p> <p>To solve it we can use rules. <div class=highlight><pre><span></span><code><span class=kt>SwitchTopic</span> <span class=mi>0</span>
 
 <span class=kt>Rule1</span>
-  <span class=n>on</span> <span class=kt>System</span><span class=o>#</span><span class=kt>Boot</span> <span class=n>var1</span> <span class=mi>0</span> <span class=kt>ENDON</span>
+  <span class=n>on</span> <span class=kt>System</span><span class=o>#</span><span class=kt>Boot</span> <span class=kt>DO</span> <span class=n>var1</span> <span class=mi>0</span> <span class=kt>ENDON</span>
   <span class=kt>ON</span> <span class=kt>Switch2</span><span class=o>#</span><span class=kt>State</span> <span class=kt>DO</span> <span class=kt>Backlog</span> <span class=n>add1</span> <span class=mi>1</span><span class=p>;</span> <span class=n>event</span> <span class=kt>START</span> <span class=kt>ENDON</span>
   <span class=kt>ON</span> <span class=n>event</span><span class=o>#</span><span class=kt>START</span> <span class=kt>DO</span> <span class=n>event</span> <span class=kt>BELL</span><span class=o>=%</span><span class=n>var1</span><span class=o>%</span> <span class=kt>ENDON</span>
   <span class=kt>ON</span> <span class=n>event</span><span class=o>#</span><span class=kt>BELL</span><span class=ow>=</span><span class=mf>1.000</span> <span class=kt>DO</span> <span class=kt>Backlog</span> <span class=n>publish</span> <span class=n>cmnd</span><span class=o>/</span><span class=n>bell</span><span class=o>/</span><span class=n>power</span> <span class=n>on</span><span class=p>;</span> <span class=kt>RuleTimer1</span> <span class=mi>60</span> <span class=kt>ENDON</span>
