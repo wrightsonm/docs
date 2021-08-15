@@ -74,44 +74,44 @@
 
 <span class=c1>// -- Options for firmware tasmota-foo and tasmota32-foo ------</span>
 <span class=cp>#ifdef FIRMWARE_FOO</span>
-    <span class=c1>// This line will issue a warning during the build (yellow in </span>
-    <span class=c1>// VSCode) so you see which section is used</span>
-    <span class=cp>#warning **** Build: FOO ****</span>
-    <span class=c1>// -- CODE_IMAGE_STR is the name shown between brackets on the </span>
-    <span class=c1>//    Information page or in INFO MQTT messages</span>
-    <span class=cp>#undef CODE_IMAGE_STR</span>
-    <span class=cp>#define CODE_IMAGE_STR &quot;foo&quot;</span>
+<span class=w>    </span><span class=c1>// This line will issue a warning during the build (yellow in </span>
+<span class=w>    </span><span class=c1>// VSCode) so you see which section is used</span>
+<span class=w>    </span><span class=cp>#warning **** Build: FOO ****</span>
+<span class=w>    </span><span class=c1>// -- CODE_IMAGE_STR is the name shown between brackets on the </span>
+<span class=w>    </span><span class=c1>//    Information page or in INFO MQTT messages</span>
+<span class=w>    </span><span class=cp>#undef CODE_IMAGE_STR</span>
+<span class=w>    </span><span class=cp>#define CODE_IMAGE_STR &quot;foo&quot;</span>
 
-    <span class=c1>// Put here your override for firmware tasmota-foo</span>
-    <span class=cp>#define USE_I2C</span>
-    <span class=cp>#define USE_SENSOR_FOO  </span><span class=c1>// Beware this doesn&#39;t exist !!!</span>
+<span class=w>    </span><span class=c1>// Put here your override for firmware tasmota-foo</span>
+<span class=w>    </span><span class=cp>#define USE_I2C</span>
+<span class=w>    </span><span class=cp>#define USE_SENSOR_FOO  </span><span class=c1>// Beware this doesn&#39;t exist !!!</span>
 
 <span class=cp>#endif</span>
 
 <span class=c1>// -- Options for firmware tasmota-bar ------</span>
 <span class=cp>#ifdef FIRMWARE_BAR</span>
-    <span class=cp>#warning **** Build: BAR ****</span>
-    <span class=cp>#undef CODE_IMAGE_STR</span>
-    <span class=cp>#define CODE_IMAGE_STR &quot;bar&quot;</span>
+<span class=w>    </span><span class=cp>#warning **** Build: BAR ****</span>
+<span class=w>    </span><span class=cp>#undef CODE_IMAGE_STR</span>
+<span class=w>    </span><span class=cp>#define CODE_IMAGE_STR &quot;bar&quot;</span>
 
-    <span class=c1>// Put here your override for firmware tasmota-bar</span>
+<span class=w>    </span><span class=c1>// Put here your override for firmware tasmota-bar</span>
 
 <span class=cp>#endif</span>
 
 <span class=c1>// -- Options for firmware tasmota32-grizzly ------</span>
 <span class=cp>#ifdef FIRMWARE_GRIZZLY</span>
 
-    <span class=c1>// If these settings are only for ESP32, you can check these</span>
-    <span class=c1>// are used only when building for ESP32</span>
-    <span class=cp>#ifndef ESP32</span>
-    <span class=cp>#error *** This setup of for tasmota32 only ***</span>
-    <span class=cp>#endif</span>
+<span class=w>    </span><span class=c1>// If these settings are only for ESP32, you can check these</span>
+<span class=w>    </span><span class=c1>// are used only when building for ESP32</span>
+<span class=w>    </span><span class=cp>#ifndef ESP32</span>
+<span class=w>    </span><span class=cp>#error *** This setup of for tasmota32 only ***</span>
+<span class=w>    </span><span class=cp>#endif</span>
 
-    <span class=cp>#warning **** Build: GRIZZLY ****</span>
-    <span class=cp>#undef CODE_IMAGE_STR</span>
-    <span class=cp>#define CODE_IMAGE_STR &quot;grizzly&quot;</span>
+<span class=w>    </span><span class=cp>#warning **** Build: GRIZZLY ****</span>
+<span class=w>    </span><span class=cp>#undef CODE_IMAGE_STR</span>
+<span class=w>    </span><span class=cp>#define CODE_IMAGE_STR &quot;grizzly&quot;</span>
 
-    <span class=c1>// Put here your override for firmware tasmota32-grizzly</span>
+<span class=w>    </span><span class=c1>// Put here your override for firmware tasmota32-grizzly</span>
 
 <span class=cp>#endif</span>
 
