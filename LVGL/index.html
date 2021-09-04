@@ -49,7 +49,7 @@ E1,0F,00,0E,14,03,11,07,31,C1,48,08,0F,0C,31,36,0F
 
 <span class=c1>#- Upper state line -#</span>
 <span class=n>stat_line</span> <span class=o>=</span> <span class=n>lv_label</span><span class=p>(</span><span class=n>scr</span><span class=p>)</span>
-<span class=k>if</span> <span class=n>f20</span> <span class=o>!=</span> <span class=n>nil</span> <span class=n>stat_line</span><span class=o>.</span><span class=n>set_style_local_text_font</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>OBJ_PART_MAIN</span><span class=p>,</span> <span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>f20</span><span class=p>)</span> <span class=n>end</span>
+<span class=k>if</span> <span class=n>f20</span> <span class=o>!=</span> <span class=kp>nil</span> <span class=n>stat_line</span><span class=o>.</span><span class=n>set_style_local_text_font</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>OBJ_PART_MAIN</span><span class=p>,</span> <span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>f20</span><span class=p>)</span> <span class=k>end</span>
 <span class=n>stat_line</span><span class=o>.</span><span class=n>set_long_mode</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>LABEL_LONG_SROLL</span><span class=p>)</span>                                                  <span class=c1># auto scrolling if text does not fit</span>
 <span class=n>stat_line</span><span class=o>.</span><span class=n>set_width</span><span class=p>(</span><span class=n>hres</span><span class=p>)</span>
 <span class=n>stat_line</span><span class=o>.</span><span class=n>set_align</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>LABEL_ALIGN_LEFT</span><span class=p>)</span>                                                      <span class=c1># align text left</span>
@@ -71,7 +71,7 @@ E1,0F,00,0E,14,03,11,07,31,C1,48,08,0F,0C,31,36,0F
 <span class=n>btn_style</span> <span class=o>=</span> <span class=n>lv_style</span><span class=p>()</span>
 <span class=n>btn_style</span><span class=o>.</span><span class=n>set_radius</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=mi>10</span><span class=p>)</span>                        <span class=c1># radius of rounded corners</span>
 <span class=n>btn_style</span><span class=o>.</span><span class=n>set_bg_opa</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>lv</span><span class=o>.</span><span class=n>OPA_COVER</span><span class=p>)</span>              <span class=c1># 100% backgrond opacity</span>
-<span class=k>if</span> <span class=n>f20</span> <span class=o>!=</span> <span class=n>nil</span> <span class=n>btn_style</span><span class=o>.</span><span class=n>set_text_font</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>f20</span><span class=p>)</span> <span class=n>end</span>  <span class=c1># set font to Montserrat 20</span>
+<span class=k>if</span> <span class=n>f20</span> <span class=o>!=</span> <span class=kp>nil</span> <span class=n>btn_style</span><span class=o>.</span><span class=n>set_text_font</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>f20</span><span class=p>)</span> <span class=k>end</span>  <span class=c1># set font to Montserrat 20</span>
 <span class=n>btn_style</span><span class=o>.</span><span class=n>set_bg_color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>lv_color</span><span class=p>(</span><span class=mh>0x1fa3ec</span><span class=p>))</span>      <span class=c1># background color #1FA3EC (Tasmota Blue)</span>
 <span class=n>btn_style</span><span class=o>.</span><span class=n>set_border_color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>lv_color</span><span class=p>(</span><span class=mh>0x0000FF</span><span class=p>))</span>  <span class=c1># border color #0000FF</span>
 <span class=n>btn_style</span><span class=o>.</span><span class=n>set_text_color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>,</span> <span class=n>lv_color</span><span class=p>(</span><span class=mh>0xFFFFFF</span><span class=p>))</span>    <span class=c1># text color white #FFFFFF</span>
@@ -103,12 +103,12 @@ E1,0F,00,0E,14,03,11,07,31,C1,48,08,0F,0C,31,36,0F
   <span class=k>if</span> <span class=n>lv</span><span class=o>.</span><span class=n>EVENT_CLICKED</span>
     <span class=n>var</span> <span class=n>btn</span> <span class=o>=</span> <span class=s2>&quot;Unknown&quot;</span>
     <span class=k>if</span>   <span class=n>o</span> <span class=o>==</span> <span class=n>prev_btn</span>  <span class=n>btn</span> <span class=o>=</span> <span class=s2>&quot;Prev&quot;</span>
-    <span class=k>elif</span> <span class=n>o</span> <span class=o>==</span> <span class=n>next_btn</span>  <span class=n>btn</span> <span class=o>=</span> <span class=s2>&quot;Next&quot;</span>
-    <span class=k>elif</span> <span class=n>o</span> <span class=o>==</span> <span class=n>home_btn</span>  <span class=n>btn</span> <span class=o>=</span> <span class=s2>&quot;Home&quot;</span>
-    <span class=n>end</span>
+    <span class=n>elif</span> <span class=n>o</span> <span class=o>==</span> <span class=n>next_btn</span>  <span class=n>btn</span> <span class=o>=</span> <span class=s2>&quot;Next&quot;</span>
+    <span class=n>elif</span> <span class=n>o</span> <span class=o>==</span> <span class=n>home_btn</span>  <span class=n>btn</span> <span class=o>=</span> <span class=s2>&quot;Home&quot;</span>
+    <span class=k>end</span>
     <span class=nb>print</span><span class=p>(</span><span class=n>btn</span><span class=p>,</span> <span class=s2>&quot;button pressed&quot;</span><span class=p>)</span>
-  <span class=n>end</span>
-<span class=n>end</span>
+  <span class=k>end</span>
+<span class=k>end</span>
 
 <span class=c1># associate callbacks to buttons</span>
 <span class=n>prev_btn</span><span class=o>.</span><span class=n>set_event_cb</span><span class=p>(</span><span class=n>btn_event_cb</span><span class=p>)</span>
