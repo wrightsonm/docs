@@ -283,7 +283,7 @@
     <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/tasmota/SENSOR&quot;</span>
     <span class=nt>value_template</span><span class=p>:</span> <span class=s>&#39;{{</span><span class=nv> </span><span class=s>value_json[&quot;ENERGY&quot;][&quot;Current&quot;]</span><span class=nv> </span><span class=s>}}&#39;</span>
     <span class=nt>unit_of_measurement</span><span class=p>:</span> <span class=s>&quot;A&quot;</span>
-</code></pre></div> <div class="admonition tip"> <p class=admonition-title>Tip</p> <p>For additional sensors use "Total";"Yesterday";"Period","ApparentPower","ReactivePower";"Factor" in <code>value_template</code> string</p> </div> <p><a href="https://www.youtube.com/watch?v=ktHQrhAF8VQ">Video tutorial</a> on a power monitoring plug setup by Digiblur</p> <h3 id=binary-sensors>Binary Sensors<a class=headerlink href=#binary-sensors title="Permanent link">~</a></h3> <p>Add in Home Assistant using the <a href=https://www.home-assistant.io/components/binary_sensor.mqtt/ >MQTT Binary Sensor</a> integration.</p> <div class="admonition example"> <p class=admonition-title>PIR Sensor</p> </div> <p>Used for a configured <a href=../PIR-Motion-Sensors/ >PIR Sensor</a> and requires correct <a href=../Commands/#switchmode>SwitchMode</a> with ON/OFF states and this rule:</p> <p><strong>Required Commands</strong> <div class=highlight><pre><span></span><code><span class=go>Rule1 on Switch1#State=1 do Publish stat/tasmota/MOTION ON endon on Switch1#State=0 do Publish stat/tasmota/MOTION OFF endon</span>
+</code></pre></div> <div class="admonition tip"> <p class=admonition-title>Tip</p> <p>For additional sensors use "Total";"Yesterday";"Period","ApparentPower","ReactivePower";"Factor" in <code>value_template</code> string</p> </div> <p><a href="https://www.youtube.com/watch?v=ktHQrhAF8VQ">Video tutorial</a> on a power monitoring plug setup by Digiblur</p> <h3 id=binary-sensors>Binary Sensors<a class=headerlink href=#binary-sensors title="Permanent link">~</a></h3> <p>Add in Home Assistant using the <a href=https://www.home-assistant.io/components/binary_sensor.mqtt/ >MQTT Binary Sensor</a> integration.</p> <div class="admonition example"> <p class=admonition-title>PIR Sensor</p> </div> <p>Used for a configured <a href=../PIR-Motion-Sensors/ >PIR Sensor</a> and requires correct <a href=../Commands/#switchmode>SwitchMode</a> with ON/OFF states and this rule:</p> <p><strong>Required Commands</strong> <div class=highlight><pre><span></span><code><span class=go>Rule1 on Switch1#State=1 do Publish stat/%topic%/MOTION ON endon on Switch1#State=0 do Publish stat/%topic%/MOTION OFF endon</span>
 <span class=go>Rule1 1</span>
 </code></pre></div> <div class=highlight><pre><span></span><code><span class=nt>binary_sensor</span><span class=p>:</span>
   <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
@@ -294,7 +294,7 @@
     <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
     <span class=nt>device_class</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">motion</span>
     <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-</code></pre></div></p> <div class="admonition example"> <p class=admonition-title>Door Sensor</p> </div> <p>Requires a reed switch configured in Tasmota. Make sure correct <a href=../Commands/#switchmode>SwitchMode</a> is set</p> <p><strong>Required Commands</strong> <div class=highlight><pre><span></span><code><span class=go>Rule1 on Switch1#State=1 do Publish stat/tasmota/DOOR ON endon on Switch1#State=0 do Publish stat/tasmota/DOOR OFF endon</span>
+</code></pre></div></p> <div class="admonition example"> <p class=admonition-title>Door Sensor</p> </div> <p>Requires a reed switch configured in Tasmota. Make sure correct <a href=../Commands/#switchmode>SwitchMode</a> is set</p> <p><strong>Required Commands</strong> <div class=highlight><pre><span></span><code><span class=go>Rule1 on Switch1#State=1 do Publish stat/%topic%/DOOR ON endon on Switch1#State=0 do Publish stat/%topic%/DOOR OFF endon</span>
 <span class=go>Rule1 1</span>
 </code></pre></div> <div class=highlight><pre><span></span><code><span class=nt>binary_sensor</span><span class=p>:</span>
   <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
@@ -352,7 +352,7 @@
     <span class=nt>position_open</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
     <span class=nt>position_closed</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
     <span class=nt>position_topic</span><span class=p>:</span> <span class=s>&quot;tele/tasmota/RESULT&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class="p p-Indicator">&gt;-</span>
+    <span class=nt>position_template</span><span class=p>:</span> <span class="p p-Indicator">&gt;-</span>
           <span class=no>{% if value_json.TuyaReceived.DpType2Id3 is defined %}</span>
           <span class=no>{{ value_json.TuyaReceived.DpType2Id3 }}</span>
           <span class=no>{% else %}  </span>
@@ -363,126 +363,138 @@
     <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/tasmota/LWT&quot;</span>
     <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
     <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-</code></pre></div> <p>If you change <code>name:</code> make sure to reflect that change in the value_template cover name!</p> <!-- tabs:end --> <h3 id=climate>Climate<a class=headerlink href=#climate title="Permanent link">~</a></h3> <!-- tabs:start --> <p><a href=https://blakadder.com/tuya-climate/ >Detailed guide</a> when using MQTT Climate or Generic Thermostat in Home Assistant</p> <!-- tabs:end --> <h3 id=device-specific>Device Specific<a class=headerlink href=#device-specific title="Permanent link">~</a></h3> <!-- tabs:start --> <div class="admonition example"> <p class=admonition-title>iFan02</p> </div> <p>Combination of configs found in issue <a href=https://github.com/arendst/Tasmota/issues/2839>#2839</a> and Home Assistant forum thread <a href=https://community.home-assistant.io/t/sonoff-ifan02-tasmota-mqtt-fan/64083>Sonoff IFan02 (Tasmota) MQTT Fan</a>.</p> <div class=highlight><pre><span></span><code><span class=nt>fan</span><span class=p>:</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>  
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;Pat</span><span class=nv> </span><span class=s>Ceiling</span><span class=nv> </span><span class=s>Fan&quot;</span>  
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;stat/ifan02/RESULT&quot;</span>
-    <span class=nt>speed_state_topic</span><span class=p>:</span> <span class=s>&quot;stat/ifan02/RESULT&quot;</span>
-    <span class=nt>state_value_template</span><span class=p>:</span> <span class="p p-Indicator">&gt;</span>
-        <span class=no>{% if value_json.FanSpeed is defined %}</span>
-          <span class=no>{% if value_json.FanSpeed == 0 -%}0{%- elif value_json.FanSpeed &gt; 0 -%}2{%- endif %}</span>
-        <span class=no>{% else %}</span>
-          <span class=no>{% if states.fan.pat_ceiling_fan.state == &#39;off&#39; -%}0{%- elif states.fan.pat_ceiling_fan.state == &#39;on&#39; -%}2{%- endif %}</span>
-        <span class=no>{% endif %}</span>
-    <span class=nt>speed_value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json.FanSpeed</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">tele/ifan02/LWT</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-    <span class=nt>speed_command_topic</span><span class=p>:</span> <span class=s>&quot;cmnd/ifan02/FanSpeed&quot;</span>
-    <span class=nt>payload_low_speed</span><span class=p>:</span> <span class=s>&quot;1&quot;</span>
-    <span class=nt>payload_medium_speed</span><span class=p>:</span> <span class=s>&quot;2&quot;</span>
-    <span class=nt>payload_high_speed</span><span class=p>:</span> <span class=s>&quot;3&quot;</span>
-    <span class=nt>command_topic</span><span class=p>:</span> <span class=s>&quot;cmnd/ifan02/FanSpeed&quot;</span>
-    <span class=nt>payload_off</span><span class=p>:</span> <span class=s>&quot;0&quot;</span>
-    <span class=nt>payload_on</span><span class=p>:</span> <span class=s>&quot;2&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>retain</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class=nt>speeds</span><span class=p>:</span>
-      <span class="p p-Indicator">-</span> <span class=s>&quot;low&quot;</span>
-      <span class="p p-Indicator">-</span> <span class=s>&quot;medium&quot;</span>
-      <span class="p p-Indicator">-</span> <span class=s>&quot;high&quot;</span>
-<span class=nt>light</span><span class=p>:</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;Pat</span><span class=nv> </span><span class=s>Ceiling</span><span class=nv> </span><span class=s>Light&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/ifan02/STATE&quot;</span>
-    <span class=nt>state_value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json.POWER</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>command_topic</span><span class=p>:</span> <span class=s>&quot;cmnd/ifan02/POWER&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/ifan02/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_on</span><span class=p>:</span> <span class=s>&quot;ON&quot;</span>
-    <span class=nt>payload_off</span><span class=p>:</span> <span class=s>&quot;OFF&quot;</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-    <span class=nt>retain</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-</code></pre></div> <div class="admonition example"> <p class=admonition-title>Sonoff S31</p> </div> <p>Configure the device as Sonoff S31, and run: <a href=../Commands/#setoption4><code>SetOption4 1</code></a>, <a href=../Commands/#setoption59><code>SetOption59 1</code></a>.</p> <div class=highlight><pre><span></span><code><span class=nt>switch</span><span class=p>:</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>power&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/STATE&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json.POWER</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>command_topic</span><span class=p>:</span> <span class=s>&quot;cmnd/s31/POWER&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_on</span><span class=p>:</span> <span class=s>&quot;ON&quot;</span>
-    <span class=nt>payload_off</span><span class=p>:</span> <span class=s>&quot;OFF&quot;</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-    <span class=nt>retain</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div> <p>If you change <code>name:</code> make sure to reflect that change in the value_template cover name!</p> <!-- tabs:end --> <h3 id=climate>Climate<a class=headerlink href=#climate title="Permanent link">~</a></h3> <!-- tabs:start --> <p><a href=https://blakadder.com/tuya-climate/ >Detailed guide</a> when using MQTT Climate or Generic Thermostat in Home Assistant</p> <!-- tabs:end --> <h3 id=device-specific>Device Specific<a class=headerlink href=#device-specific title="Permanent link">~</a></h3> <!-- tabs:start --> <!--!! example "iFan02"
+OBSOLETE CONFIGURATION! Combination of configs found in issue [#2839](https://github.com/arendst/Tasmota/issues/2839)
+and Home Assistant forum thread [Sonoff IFan02 (Tasmota) MQTT Fan](https://community.home-assistant.io/t/sonoff-ifan02-tasmota-mqtt-fan/64083). 
 
-<span class=nt>sensor</span><span class=p>:</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>Voltage&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/SENSOR&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json[&#39;ENERGY&#39;].Voltage</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>unit_of_measurement</span><span class=p>:</span> <span class=s>&quot;V&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>Current&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/SENSOR&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json[&#39;ENERGY&#39;].Current</span><span class=nv> </span><span class=s>|</span><span class=nv> </span><span class=s>round(2)</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>unit_of_measurement</span><span class=p>:</span> <span class=s>&quot;A&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>Power&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/SENSOR&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json[&#39;ENERGY&#39;].Power</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>unit_of_measurement</span><span class=p>:</span> <span class=s>&quot;W&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-    <span class=nt>device_class</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">power</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>Power</span><span class=nv> </span><span class=s>Factor&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/SENSOR&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json[&#39;ENERGY&#39;].Factor</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>Energy</span><span class=nv> </span><span class=s>Today&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/SENSOR&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json[&#39;ENERGY&#39;].Today</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>unit_of_measurement</span><span class=p>:</span> <span class=s>&quot;kWh&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>Energy</span><span class=nv> </span><span class=s>Yesterday&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/SENSOR&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json[&#39;ENERGY&#39;].Yesterday</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>unit_of_measurement</span><span class=p>:</span> <span class=s>&quot;kWh&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-  <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
-    <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;s31</span><span class=nv> </span><span class=s>Energy</span><span class=nv> </span><span class=s>Total&quot;</span>
-    <span class=nt>state_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/SENSOR&quot;</span>
-    <span class=nt>value_template</span><span class=p>:</span> <span class=s>&quot;{{</span><span class=nv> </span><span class=s>value_json[&#39;ENERGY&#39;].Total</span><span class=nv> </span><span class=s>}}&quot;</span>
-    <span class=nt>unit_of_measurement</span><span class=p>:</span> <span class=s>&quot;kWh&quot;</span>
-    <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/s31/LWT&quot;</span>
-    <span class=nt>qos</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-    <span class=nt>payload_available</span><span class=p>:</span> <span class=s>&quot;Online&quot;</span>
-    <span class=nt>payload_not_available</span><span class=p>:</span> <span class=s>&quot;Offline&quot;</span>
-</code></pre></div> <!-- tabs:end --> <!-- tabs:start --> <div class="admonition example"> <p class=admonition-title>Covers</p> </div> <p>For shutter position to persist in Home Assistant through device reboots, execute <code>PowerRetain 1</code>.</p> <p>These sample configurations should allow the shutter work in Home Assistant. This is only an example and may need further modification to work in your environment.</p> <p>This example uses a new configuration for roller shutters with options for positioning. It assumes that <code>%prefix%/%topic%/</code> is configured in the Tasmota Full Topic MQTT parameter. </p> <p><div class=highlight><pre><span></span><code><span class=nt>cover</span><span class=p>:</span>
+<div class="highlight"><pre><span></span><code><span class="nt">fan</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>  
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Pat</span><span class="nv"> </span><span class="s">Ceiling</span><span class="nv"> </span><span class="s">Fan&quot;</span>  
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;stat/ifan02/RESULT&quot;</span>
+    <span class="nt">speed_state_topic</span><span class="p">:</span> <span class="s">&quot;stat/ifan02/RESULT&quot;</span>
+    <span class="nt">state_value_template</span><span class="p">:</span> <span class="p p-Indicator">&gt;</span>
+        <span class="no">{% if value_json.FanSpeed is defined %}</span>
+          <span class="no">{% if value_json.FanSpeed == 0 -%}0{%- elif value_json.FanSpeed &gt; 0 -%}2{%- endif %}</span>
+        <span class="no">{% else %}</span>
+          <span class="no">{% if states.fan.pat_ceiling_fan.state == &#39;off&#39; -%}0{%- elif states.fan.pat_ceiling_fan.state == &#39;on&#39; -%}2{%- endif %}</span>
+        <span class="no">{% endif %}</span>
+    <span class="nt">speed_value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json.FanSpeed</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tele/ifan02/LWT</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+    <span class="nt">speed_command_topic</span><span class="p">:</span> <span class="s">&quot;cmnd/ifan02/FanSpeed&quot;</span>
+    <span class="nt">payload_low_speed</span><span class="p">:</span> <span class="s">&quot;1&quot;</span>
+    <span class="nt">payload_medium_speed</span><span class="p">:</span> <span class="s">&quot;2&quot;</span>
+    <span class="nt">payload_high_speed</span><span class="p">:</span> <span class="s">&quot;3&quot;</span>
+    <span class="nt">command_topic</span><span class="p">:</span> <span class="s">&quot;cmnd/ifan02/FanSpeed&quot;</span>
+    <span class="nt">payload_off</span><span class="p">:</span> <span class="s">&quot;0&quot;</span>
+    <span class="nt">payload_on</span><span class="p">:</span> <span class="s">&quot;2&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">retain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">speeds</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;low&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;medium&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;high&quot;</span>
+<span class="nt">light</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;Pat</span><span class="nv"> </span><span class="s">Ceiling</span><span class="nv"> </span><span class="s">Light&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/ifan02/STATE&quot;</span>
+    <span class="nt">state_value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json.POWER</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">command_topic</span><span class="p">:</span> <span class="s">&quot;cmnd/ifan02/POWER&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/ifan02/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_on</span><span class="p">:</span> <span class="s">&quot;ON&quot;</span>
+    <span class="nt">payload_off</span><span class="p">:</span> <span class="s">&quot;OFF&quot;</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+    <span class="nt">retain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="err">```</span><span class="l l-Scalar l-Scalar-Plain">--&gt;</span>
+
+<span class="kt">!!!</span> <span class="l l-Scalar l-Scalar-Plain">example &quot;Sonoff S31&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">Configure the device as Sonoff S31, and run</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="err">`</span><span class="nv">SetOption4 1`</span><span class="p p-Indicator">]</span><span class="l l-Scalar l-Scalar-Plain">(Commands.md#setoption4), [`SetOption59 1`](Commands.md#setoption59).</span>
+
+<span class="err">```</span><span class="l l-Scalar l-Scalar-Plain">yaml</span>
+<span class="nt">switch</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">power&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/STATE&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json.POWER</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">command_topic</span><span class="p">:</span> <span class="s">&quot;cmnd/s31/POWER&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_on</span><span class="p">:</span> <span class="s">&quot;ON&quot;</span>
+    <span class="nt">payload_off</span><span class="p">:</span> <span class="s">&quot;OFF&quot;</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+    <span class="nt">retain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">sensor</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">Voltage&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/SENSOR&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json[&#39;ENERGY&#39;].Voltage</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;V&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">Current&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/SENSOR&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json[&#39;ENERGY&#39;].Current</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">round(2)</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;A&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">Power&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/SENSOR&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json[&#39;ENERGY&#39;].Power</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;W&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+    <span class="nt">device_class</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">power</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">Power</span><span class="nv"> </span><span class="s">Factor&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/SENSOR&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json[&#39;ENERGY&#39;].Factor</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">Energy</span><span class="nv"> </span><span class="s">Today&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/SENSOR&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json[&#39;ENERGY&#39;].Today</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;kWh&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">Energy</span><span class="nv"> </span><span class="s">Yesterday&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/SENSOR&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json[&#39;ENERGY&#39;].Yesterday</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;kWh&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;s31</span><span class="nv"> </span><span class="s">Energy</span><span class="nv"> </span><span class="s">Total&quot;</span>
+    <span class="nt">state_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/SENSOR&quot;</span>
+    <span class="nt">value_template</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">value_json[&#39;ENERGY&#39;].Total</span><span class="nv"> </span><span class="s">}}&quot;</span>
+    <span class="nt">unit_of_measurement</span><span class="p">:</span> <span class="s">&quot;kWh&quot;</span>
+    <span class="nt">availability_topic</span><span class="p">:</span> <span class="s">&quot;tele/s31/LWT&quot;</span>
+    <span class="nt">qos</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">payload_available</span><span class="p">:</span> <span class="s">&quot;Online&quot;</span>
+    <span class="nt">payload_not_available</span><span class="p">:</span> <span class="s">&quot;Offline&quot;</span>
+</code></pre></div>
+
+<!-- tabs:end --> <!-- tabs:start --> <div class="admonition example"> <p class=admonition-title>Covers</p> </div> <p>For shutter position to persist in Home Assistant through device reboots, execute <code>PowerRetain 1</code>.</p> <p>These sample configurations should allow the shutter work in Home Assistant. This is only an example and may need further modification to work in your environment.</p> <p>This example uses a new configuration for roller shutters with options for positioning. It assumes that <code>%prefix%/%topic%/</code> is configured in the Tasmota Full Topic MQTT parameter. </p> <p><div class=highlight><pre><span></span><code><span class=nt>cover</span><span class=p>:</span>
   <span class="p p-Indicator">-</span> <span class=nt>platform</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">mqtt</span>
     <span class=nt>name</span><span class=p>:</span> <span class=s>&quot;Balcony</span><span class=nv> </span><span class=s>Blinds&quot;</span>
     <span class=nt>availability_topic</span><span class=p>:</span> <span class=s>&quot;tele/%topic%/LWT&quot;</span>
