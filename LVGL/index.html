@@ -187,7 +187,7 @@ lv_color(0x838183 - native:0x1084)
 
 <span class=c1># set background color to blue</span>
 <span class=n>scr</span> <span class=o>=</span> <span class=n>lv</span><span class=o>.</span><span class=n>scr_act</span><span class=p>()</span>
-<span class=n>scr</span><span class=o>.</span><span class=n>set_style_bg_color</span><span class=p>(</span><span class=n>lv_color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>COLOR_BLUE</span><span class=p>),</span> <span class=n>lv</span><span class=o>.</span><span class=n>PART_MAIN</span> <span class=o>|</span> <span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>)</span>
+<span class=n>scr</span><span class=o>.</span><span class=n>set_style_bg_color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>COLOR_BLUE</span><span class=p>),</span> <span class=n>lv</span><span class=o>.</span><span class=n>PART_MAIN</span> <span class=o>|</span> <span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>)</span>
 
 <span class=c1># create a lv_img object and set it to Tasmota logo</span>
 <span class=n>logo</span> <span class=o>=</span> <span class=n>lv_img</span><span class=p>(</span><span class=n>scr</span><span class=p>)</span>
@@ -195,7 +195,7 @@ lv_color(0x838183 - native:0x1084)
 <span class=n>logo</span><span class=o>.</span><span class=n>center</span><span class=p>()</span>
 </code></pre></div> <p><img alt=screenshot-1618843384 src=https://user-images.githubusercontent.com/49731213/115389330-3ee56f00-a1dd-11eb-9925-bc91a1d3cf89.png></p> <p>The logo is black, with anti-aliasing and transparency. You can now manipulate the logo: change zoom, rotate or recolor.</p> <div class=highlight><pre><span></span><code><span class=c1># recolor logo to white</span>
 <span class=n>logo</span><span class=o>.</span><span class=n>set_style_img_recolor_opa</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span> <span class=n>lv</span><span class=o>.</span><span class=n>PART_MAIN</span> <span class=o>|</span> <span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>)</span>
-<span class=n>logo</span><span class=o>.</span><span class=n>set_style_img_recolor</span><span class=p>(</span><span class=n>lv_color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>COLOR_WHITE</span><span class=p>),</span> <span class=n>lv</span><span class=o>.</span><span class=n>PART_MAIN</span> <span class=o>|</span> <span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>)</span>
+<span class=n>logo</span><span class=o>.</span><span class=n>set_style_img_recolor</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>color</span><span class=p>(</span><span class=n>lv</span><span class=o>.</span><span class=n>COLOR_WHITE</span><span class=p>),</span> <span class=n>lv</span><span class=o>.</span><span class=n>PART_MAIN</span> <span class=o>|</span> <span class=n>lv</span><span class=o>.</span><span class=n>STATE_DEFAULT</span><span class=p>)</span>
 
 <span class=c1># zoom by 125% - 100% is 256, so 125% is 320</span>
 <span class=n>logo</span><span class=o>.</span><span class=n>set_zoom</span><span class=p>(</span><span class=mi>300</span><span class=p>)</span>
