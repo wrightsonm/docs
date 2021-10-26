@@ -136,11 +136,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://tasmota.github.io/docs/Builds/</loc>
-         <lastmod>2021-10-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://tasmota.github.io/docs/Buttons-and-Switches/</loc>
          <lastmod>2021-10-26</lastmod>
          <changefreq>daily</changefreq>
@@ -407,11 +402,6 @@
     </url>
     <url>
          <loc>https://tasmota.github.io/docs/I2CDEVICES/</loc>
-         <lastmod>2021-10-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://tasmota.github.io/docs/I2CDevices/</loc>
          <lastmod>2021-10-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
