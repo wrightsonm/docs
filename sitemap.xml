@@ -466,6 +466,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://tasmota.github.io/docs/LVGL_in_10_minutes/</loc>
+         <lastmod>2021-12-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://tasmota.github.io/docs/LedMask/</loc>
          <lastmod>2021-12-02</lastmod>
          <changefreq>daily</changefreq>
