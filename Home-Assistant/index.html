@@ -543,7 +543,7 @@ and Home Assistant forum thread [Sonoff IFan02 (Tasmota) MQTT Fan](https://commu
 <span class=w>    </span><span class=nt>payload_available</span><span class=p>:</span><span class=w> </span><span class=s>&quot;Online&quot;</span><span class=w></span>
 <span class=w>    </span><span class=nt>payload_not_available</span><span class=p>:</span><span class=w> </span><span class=s>&quot;Offline&quot;</span><span class=w></span>
 <span class=w>    </span><span class=nt>position_topic</span><span class=p>:</span><span class=w> </span><span class=s>&quot;stat/%topic%/RESULT&quot;</span><span class=w></span>
-<span class=w>    </span><span class=nt>value_template</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">&gt;</span><span class=w></span>
+<span class=w>    </span><span class=nt>position_template</span><span class=p>:</span><span class=w> </span><span class="p p-Indicator">&gt;</span><span class=w></span>
 <span class=w>      </span><span class=no>{% if (&#39;Shutter1&#39; in value_json) and (&#39;Position&#39; in value_json.Shutter1) %}</span><span class=w></span>
 <span class=w>        </span><span class=no>{{ value_json.Shutter1.Position }}</span><span class=w></span>
 <span class=w>      </span><span class=no>{% else %}</span><span class=w></span>
